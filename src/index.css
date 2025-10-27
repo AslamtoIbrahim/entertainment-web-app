@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -41,6 +41,7 @@
   --font-serif: "Playfair Display", serif;
   --font-mono: "JetBrains Mono", monospace;
   --font-robo: "Roboto Mono", monospace;
+  --font-quick: "Quicksand", sans-serif;
   --radius: 0.5rem;
   --shadow-x: 0rem;
   --shadow-y: 0.25rem;
@@ -81,7 +82,7 @@
   --primary-foreground: hsl(0 0% 98.0392%);
   --secondary: hsl(217.7778 23.0769% 22.9412%);
   --secondary-foreground: hsl(0 0% 98.0392%);
-  --muted: hsl(217.7778 23.0769% 22.9412%);
+  --muted: hsl(219, 19%, 83%);
   --muted-foreground: hsl(213.75 20.2532% 69.0196%);
   --accent: hsl(217.7778 23.0769% 22.9412%);
   --accent-foreground: hsl(0 0% 98.0392%);
@@ -107,6 +108,7 @@
   --font-serif: "Playfair Display", serif;
   --font-mono: "JetBrains Mono", monospace;
   --font-robo: "Roboto Mono", monospace;
+  --font-quick: "Quicksand", sans-serif;
   --radius: 0.5rem;
   --shadow-x: 0rem;
   --shadow-y: 0.25rem;
@@ -172,6 +174,7 @@
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
   --font-robo: var(--font-robo);
+  --font-quick: var(--font-quick);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -186,6 +189,10 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+
+  /* break points */
+  --breakpoint-xxs: 375px;
+  --breakpoint-xs: 425px;
 }
 
 @layer base {
@@ -201,6 +208,32 @@
   @apply text-muted-foreground/70 size-6 scale-100 cursor-pointer transition-all duration-200 ease-in-out hover:scale-120;
 }
 
+.bookmark {
+  @apply scale-100 cursor-pointer transition-all duration-200 ease-in-out hover:scale-120;
+}
+
 .margin-x {
-  @apply px-4 md:mx-8;
+  @apply px-4 md:mx-8 lg:max-w-4xl lg:px-4;
+}
+ 
+
+.wh-item {
+  @apply xxs:w-40 xxs:h-28 xs:w-44 xs:h-30 h-24 w-32 md:h-32 md:w-56 xl:w-full xl:h-36 ;
+}
+
+.wh-itemz {
+  @apply min-w-40 max-w-64 min-h-28 max-h-36;
+}
+
+::-webkit-scrollbar {
+  @apply h-1.5 w-1.5 bg-transparent;
+}
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-popover rounded-lg;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent;
 }

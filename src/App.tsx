@@ -1,10 +1,10 @@
 import "./App.css";
-import HeaderSidebar from "./shared/layout/header-sidebar";
-import MainLayout from "./shared/layout/main/main-layout";
+import MainLayout from "./features/dashboard/components/layouts/main-layout";
+import Navigator from "./features/dashboard/components/navigation/navigate";
 const App = () => {
   return (
-    <div>
-      <HeaderSidebar />
+    <div className="lg:flex lg:gap-x-4 lg:p-8 lg:h-screen overflow-hidden ">
+      <Navigator />
       <MainLayout />
     </div>
   );
