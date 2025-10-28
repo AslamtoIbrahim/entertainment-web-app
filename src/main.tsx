@@ -11,10 +11,20 @@ import SavesLayou from "./features/dashboard/components/layouts/saves-layout.tsx
 import TvseriesLayout from "./features/dashboard/components/layouts/tv-series-layout.tsx";
 import "./index.css";
 import SettingsPage from "./pages/settings-page.tsx";
+import LoginPage from "./pages/login-page.tsx";
+import SignUpPage from "./pages/sign-up-page.tsx";
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
+  {
+    path: "/log-in",
+    Component: LoginPage,
+  },
+  {
+    path: "/sign-up",
+    Component: SignUpPage,
+  },
   {
     path: "/",
     Component: App,
