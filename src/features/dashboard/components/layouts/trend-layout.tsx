@@ -1,31 +1,45 @@
-import { useEffect, useState } from "react";
+import { Spinner } from "@/shared/components/ui/spinner";
+import { InView } from "react-intersection-observer";
+import { useTrendingQuery } from "../../hooks/trending-query";
 import TrendItem from "../ui/trend-item";
-import type { MoviesDB } from "../../utils/types";
-import { fetchTrendingFilms } from "../../dashboard.service";
 
 function TrendLayout() {
-  const [moviesDb, setmoviesDb] = useState<MoviesDB | null>(null);
-  useEffect(() => {
-    (async () => {
-      const data = await fetchTrendingFilms();
-      if (!data) return;
-      setmoviesDb(data);
-    })();
-  }, []);
-
-  if (!moviesDb) {
-    return <p>Sorry</p>;
-  }
+  const { data, error, status, hasNextPage, fetchNextPage } =
+    useTrendingQuery();
+  const onChangeHandler = (inView: boolean) => {
+    if (inView) {
+      fetchNextPage();
+    }
+  };
   return (
-    <div className=" ml-4 lg:ml-0 space-y-4">
-      <h1 className="text-popover-foreground font-robo font-light text-2xl">Trending</h1>
-      <div className="overflow-x-auto scroll-smooth lg:w-screen">
-        <section className="flex items-center w-max gap-x-4 lg:gap-x-5 xl:gap-x-6">
-          {moviesDb.results.map((f) => (
-            <TrendItem key={f.name} film={f} />
-          ))}
-        </section>
-      </div>
+    <div className="ml-4 space-y-4 lg:ml-0">
+      <h1 className="text-popover-foreground font-robo text-2xl font-light">
+        Trending
+      </h1>
+      {status === "error" && (
+        <div className="flex h-40 items-center justify-center md:h-44 lg:h-52 xl:h-50">
+          <p className="text-red-500">{error.message}</p>
+        </div>
+      )}
+      {status === "pending" && (
+        <div className="flex h-40 items-center justify-center md:h-44 lg:h-52 xl:h-50">
+          <Spinner />
+        </div>
+      )}
+      {status === "success" && (
+        <div className="overflow-x-auto scroll-smooth lg:w-screen">
+          <section className="flex w-max items-center gap-x-4 lg:gap-x-5 xl:gap-x-6">
+            {data?.pages.map((p) =>
+              p.results.map((f) => <TrendItem key={f.name} film={f} />),
+            )}
+            {hasNextPage && (
+              <InView className="pr-4" onChange={onChangeHandler}>
+                <Spinner />
+              </InView>
+            )}
+          </section>
+        </div>
+      )}
     </div>
   );
 }

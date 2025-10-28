@@ -204,8 +204,8 @@
   }
 }
 
-.header-icons {
-  @apply text-muted-foreground/70 size-6 scale-100 cursor-pointer transition-all duration-200 ease-in-out hover:scale-120;
+.nav-icons {
+  @apply  size-6 text-muted-foreground/70 scale-100 cursor-pointer transition-all duration-200 ease-in-out hover:scale-120;
 }
 
 .bookmark {
