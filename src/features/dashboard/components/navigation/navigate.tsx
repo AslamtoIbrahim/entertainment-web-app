@@ -48,11 +48,13 @@ function Navigator() {
         </NavLink>
       </div>
 
-      <div className="">
-        <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>UN</AvatarFallback>
-        </Avatar>
+      <div className="nav-icons">
+        <NavLink to={"/settings"}>
+          <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>UN</AvatarFallback>
+          </Avatar>
+        </NavLink>
       </div>
     </div>
   );

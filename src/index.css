@@ -205,7 +205,7 @@
 }
 
 .nav-icons {
-  @apply  size-6 text-muted-foreground/70 scale-100 cursor-pointer transition-all duration-200 ease-in-out hover:scale-120;
+  @apply  text-muted-foreground/70 scale-100 cursor-pointer transition-all duration-200 ease-in-out hover:scale-120;
 }
 
 .bookmark {
@@ -236,4 +236,9 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-accent;
+}
+
+
+.theme-anime {
+  @apply transition-all duration-300 ease-in-out absolute top-0
 }
