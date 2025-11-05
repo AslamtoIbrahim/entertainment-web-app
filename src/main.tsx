@@ -18,11 +18,11 @@ const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
-    path: "/log-in",
+    path: "/login",
     Component: LoginPage,
   },
   {
-    path: "/sign-up",
+    path: "/signup",
     Component: SignUpPage,
   },
   {

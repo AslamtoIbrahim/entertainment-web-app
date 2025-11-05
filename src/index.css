@@ -211,6 +211,7 @@
 .bookmark {
   @apply scale-100 cursor-pointer transition-all duration-200 ease-in-out hover:scale-120;
 }
+ 
 
 .margin-x {
   @apply px-4 md:mx-8 lg:max-w-4xl lg:px-4;

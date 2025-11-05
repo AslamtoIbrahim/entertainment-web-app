@@ -16,11 +16,14 @@ import { Spinner } from "@/shared/components/ui/spinner";
 import { cn } from "@/shared/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogin } from "../hooks/use-login-auth";
+import { useLoginWithGoogle } from "../hooks/use-login-with-google-auth";
 import { ZodLogin, type Login } from "../utils/types";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -31,12 +34,26 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const navigate = useNavigate();
+  const { error, submit, pending: isLoadingLocal } = useLogin();
+  const {
+    error: GoogleError,
+    pending: isLoadingGoogle,
+    googleSubmit,
+  } = useLoginWithGoogle();
   const form = useForm({
     resolver: zodResolver(ZodLogin),
   });
 
-  const onSubmit = (data: Login) => {
-    console.log("user: ", data);
+  const onSubmit = async (data: Login) => {
+    const user = await submit(data);
+    if (user) {
+      navigate("/");
+    }
+  };
+
+  const onGoogleClickHandler = () => {
+    googleSubmit();
   };
 
   return (
@@ -74,22 +91,40 @@ export function LoginForm({
                       <Input {...field} type="password" />
                     </FormControl>
                     <FormMessage />
+                    {error instanceof Error && (
+                      <FormDescription className="text-red-500">
+                        {error?.message}
+                      </FormDescription>
+                    )}
+                    {GoogleError instanceof Error && (
+                      <FormDescription className="text-red-500">
+                        {GoogleError?.message}
+                      </FormDescription>
+                    )}
                   </FormItem>
                 )}
               />
               <FieldGroup>
                 <Field>
-                  <Button type="submit">
-                    <Spinner />
+                  <Button
+                    disabled={isLoadingGoogle || isLoadingLocal}
+                    type="submit"
+                  >
+                    {isLoadingLocal && <Spinner />}
                     Login
                   </Button>
-                  <Button variant="outline" type="button">
-                    <Spinner />
+                  <Button
+                    onClick={onGoogleClickHandler}
+                    disabled={isLoadingGoogle || isLoadingLocal}
+                    variant="outline"
+                    type="button"
+                  >
+                    {isLoadingGoogle && <Spinner />}
                     Login with Google
                   </Button>
                   <FieldDescription className="text-center">
                     Don&apos;t have an account?{" "}
-                    <Link to="/sign-up">Sign up</Link>
+                    <Link to="/signup">Sign up</Link>
                   </FieldDescription>
                 </Field>
               </FieldGroup>
