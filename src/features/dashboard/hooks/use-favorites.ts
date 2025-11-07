@@ -17,7 +17,6 @@ export const useAddFavorite = () => {
     mutationKey: ["favorites"],
     mutationFn: saveFavorite,
     onSuccess: (res) => {
-      console.log("res: add fav 😍", res);
       queryClient.invalidateQueries({ queryKey: ["favorites"] });
       queryClient.invalidateQueries({ queryKey: ["favorite", res.title] });
     },
@@ -40,11 +39,10 @@ export const useRemoveFavorite = () => {
     mutationKey: ["favorites"],
     mutationFn: removeFavorit,
     onSuccess: (res) => {
-      console.log("res: remove fav 💔 ", res, "title: ", res.title);
       queryClient.invalidateQueries({ queryKey: ["favorites"] });
       queryClient.invalidateQueries({ queryKey: ["favorite", res.title] });
     },
-    onError: (err) => console.log("err: ", err),
+    onError: (err) => console.log("err: 😫", err),
   });
 };
 

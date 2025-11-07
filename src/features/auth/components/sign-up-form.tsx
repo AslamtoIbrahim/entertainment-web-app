@@ -15,9 +15,10 @@ import Button from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Spinner } from "@/shared/components/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useLoginWithGoogle } from "../hooks/use-login-with-google-auth";
+import { useSignUp } from "../hooks/use-signup-auth";
 import {
   Form,
   FormControl,
@@ -27,8 +28,6 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import { useSignUp } from "../hooks/use-signup-auth";
-import { useLoginWithGoogle } from "../hooks/use-login-with-google-auth";
 
 export function SignUpForm({ ...props }: React.ComponentProps<typeof Card>) {
   const {
