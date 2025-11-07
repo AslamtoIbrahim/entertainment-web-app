@@ -35,7 +35,7 @@ function TrendLayout() {
               )),
             )}
             {hasNextPage && (
-              <InView className="pr-4" onChange={onChangeHandler}>
+              <InView className="pr-4 lg:pr-32" onChange={onChangeHandler}>
                 <Spinner />
               </InView>
             )}

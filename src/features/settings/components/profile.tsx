@@ -16,7 +16,6 @@ function Profile() {
   });
   const navigate = useNavigate();
 
-
   const onLogOutClickHandler = async () => {
     const message = await signout();
     if (message) {
@@ -35,13 +34,13 @@ function Profile() {
   if (session) {
     return (
       <section className="space-y-4">
-        <div className="flex items-center gap-4 font-bold">
+        <div className="flex items-center gap-4 lg:gap-2 font-bold">
           <Avatar>
             <AvatarImage
               className="size-6 overflow-clip rounded-full"
               src={session.image || undefined}
             />
-            <AvatarFallback className="bg-primary rounded-full p-1 font-medium text-black">
+            <AvatarFallback className="bg-primary rounded-full p-1 font-medium text-black lg:px-1.5 lg:py-2 lg:text-sm lg:-ml-1">
               {twofl(session.username || "User name")}
             </AvatarFallback>
           </Avatar>
