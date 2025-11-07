@@ -1,43 +1,24 @@
 import Bookmark from "@/shared/components/ui/bookmark";
 import Rated from "@/shared/components/ui/rated";
 import Type from "@/shared/components/ui/type";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IMG_URL } from "../../dashboard.service";
-import type { Film } from "../../utils/types";
-import {
-  useAddFavorite,
-  useGetFavoriteByTitle,
-  useRemoveFavorite,
-} from "../../hooks/use-favorites";
+import { useRemoveFavorite } from "../../hooks/use-favorites";
+import type { Favorite } from "../../utils/types";
 
-function FilmItem({ film }: { film: Film }) {
-  const { original_language, poster_path, media_type } = film;
-  const title = film.title ?? film.name ?? "No Title";
-  const date = film.first_air_date ?? film.release_date ?? "";
-  const { data } = useGetFavoriteByTitle(title);
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const addFav = useAddFavorite();
+function FavoriteItem({ favorite }: { favorite: Favorite }) {
+  const { title, date, language, path, type } = favorite;
+  const [isBookmarked, setIsBookmarked] = useState(true);
   const removeFav = useRemoveFavorite();
 
-  useEffect(() => {
-    setIsBookmarked(data?.title === title);
-  }, [data, title]);
-
-  const onSetIsBookmarkedClick = () => {
-    const newBook = !isBookmarked;
-
-    setIsBookmarked(newBook);
-    console.log("data", data);
-    if (newBook) {
-      addFav.mutate({
-        title,
-        date,
-        language: original_language,
-        path: poster_path,
-        type: media_type,
-      });
-    } else {
-      if (data) removeFav.mutate(data.id);
+  const onSetIsBookmarkedClick = async () => {
+    try {
+      const removedFav = await removeFav.mutateAsync(favorite.id);
+      if (removedFav) {
+        setIsBookmarked(false);
+      }
+    } catch (error) {
+      console.log("wrong: ", error);
     }
   };
   return (
@@ -53,12 +34,12 @@ function FilmItem({ film }: { film: Film }) {
         <picture>
           <source
             media="(min-width: 768px)"
-            srcSet={`${IMG_URL}/w500/${poster_path}`}
+            srcSet={`${IMG_URL}/w500/${path}`}
             sizes="w500"
           />
           <img
             className="xxs:h-48 xs:h-54 h-42 w-full rounded-lg object-cover xl:h-60"
-            src={`${IMG_URL}/w200/${poster_path}`}
+            src={`${IMG_URL}/w200/${path}`}
           />
         </picture>
       </div>
@@ -67,9 +48,9 @@ function FilmItem({ film }: { film: Film }) {
         <div className="text-foreground/70 flex items-center gap-x-1">
           <p>{date.slice(0, 4)}</p>
           <span className="bg-foreground/70 size-1 rounded-full" />
-          <Type size="size-3" type={media_type} />
+          <Type size="size-3" type={type} />
           <span className="bg-foreground/70 size-1 rounded-full" />
-          <Rated className="bg-transparent" text={original_language} />
+          <Rated className="bg-transparent" text={language} />
         </div>
         <p className="xxs:w-fit w-32 max-w-max truncate text-sm font-semibold text-nowrap capitalize">
           {title}
@@ -79,4 +60,4 @@ function FilmItem({ film }: { film: Film }) {
   );
 }
 
-export default FilmItem;
+export default FavoriteItem;

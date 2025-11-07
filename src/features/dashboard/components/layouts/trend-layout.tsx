@@ -30,7 +30,9 @@ function TrendLayout() {
         <div className="overflow-x-auto scroll-smooth lg:w-screen">
           <section className="flex w-max items-center gap-x-4 lg:gap-x-5 xl:gap-x-6">
             {data?.pages.map((p) =>
-              p.results.map((f) => <TrendItem key={f.name} film={f} />),
+              p.results.map((f) => (
+                <TrendItem key={f.title || f.name} film={f} />
+              )),
             )}
             {hasNextPage && (
               <InView className="pr-4" onChange={onChangeHandler}>

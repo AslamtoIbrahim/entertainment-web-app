@@ -1,5 +1,6 @@
+import { BACKEND_URL } from "@/shared/lib/utils";
 import axios from "axios";
-import type { Films } from "./utils/types";
+import type { Favorite, Films, Heart, PageFavorites } from "./utils/types";
 export const IMG_URL = "https://image.tmdb.org/t/p";
 const API_KEY = "ad5a071b9678eb7768bdc204670822bb";
 
@@ -69,5 +70,52 @@ export const fetchMovies = async ({ pageParam }: { pageParam: number }) => {
       params: { api_key: API_KEY, page: pageParam },
     },
   );
+  return res.data;
+};
+
+export const saveFavorite = async (heart: Heart) => {
+  const res = await axios.post<Favorite>(`${BACKEND_URL}/favorite`, heart, {
+    withCredentials: true,
+  });
+
+  return res.data;
+};
+
+export const getFavorites = async ({
+  pageParam,
+  queryKey,
+}: {
+  pageParam: string | null;
+  queryKey: [string, string];
+}) => {
+  const [_, search] = queryKey;
+  const res = await axios.get<PageFavorites>(`${BACKEND_URL}/favorite`, {
+    params: {
+      cursor: pageParam,
+      search,
+    },
+    withCredentials: true,
+  });
+  return res.data;
+};
+
+export const removeFavorit = async (id: string) => {
+  const res = await axios.delete<Favorite>(`${BACKEND_URL}/favorite/${id}`, {
+    withCredentials: true,
+  });
+
+  return res.data;
+};
+
+export const getFavoritByTitle = async ({
+  queryKey,
+}: {
+  queryKey: readonly unknown[];
+}) => {
+  const [_, title] = queryKey as [string, string];
+  const res = await axios.get<Favorite>(`${BACKEND_URL}/favorite/one`, {
+    params: { title },
+    withCredentials: true,
+  });
   return res.data;
 };

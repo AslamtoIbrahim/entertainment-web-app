@@ -1,5 +1,3 @@
- 
-
 export type Film = {
   title?: string;
   name?: string;
@@ -15,5 +13,27 @@ export type Films = {
   results: Film[];
   total_pages: number;
 };
- 
-// api key :  ad5a071b9678eb7768bdc204670822bb
+
+export type Favorite = {
+  id: string;
+  userId: string;
+  title: string;
+  date: string;
+  language: string;
+  path: string;
+  type: string;
+};
+
+export type Heart = {
+  title: string;
+  date: string;
+  language: string;
+  path: string;
+  type: string;
+};
+
+export type PageFavorites = {
+  favorites: Favorite[];
+  nextCursor: string | null;
+};
+

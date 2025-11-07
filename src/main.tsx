@@ -7,7 +7,7 @@ import App from "./App.tsx";
 import MainLayout from "./features/dashboard/components/layouts/main-layout.tsx";
 import MoviesLayout from "./features/dashboard/components/layouts/movies-layout.tsx";
 import NotFound from "./features/dashboard/components/layouts/not-found.tsx";
-import SavesLayou from "./features/dashboard/components/layouts/saves-layout.tsx";
+import FavoritesLayout from "./features/dashboard/components/layouts/favorites-layout.tsx";
 import TvseriesLayout from "./features/dashboard/components/layouts/tv-series-layout.tsx";
 import "./index.css";
 import SettingsPage from "./pages/settings-page.tsx";
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       { index: true, Component: MainLayout },
       { path: "/movies", Component: MoviesLayout },
       { path: "/tvseries", Component: TvseriesLayout },
-      { path: "/saves", Component: SavesLayou },
+      { path: "/saves", Component: FavoritesLayout },
       { path: "*", Component: NotFound },
     ],
   },
