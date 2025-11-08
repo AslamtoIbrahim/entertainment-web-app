@@ -10,7 +10,7 @@ function FavoritesLayout() {
   const favoritesQuery = useFavoritesQuery(searchDebounce);
 
   const onSearchangeHandler = (search: string) => {
-    setSearch(search.trim());
+    setSearch(search);
   };
 
 

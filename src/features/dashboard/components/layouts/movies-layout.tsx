@@ -12,7 +12,7 @@ function MoviesLayout() {
   const moviesQuery = useMoviesQuery();
 
   const onSearchangeHandler = (search: string) => {
-    setSearch(search.trim());
+    setSearch(search);
   };
   return (
     <div className="space-y-6 py-4 lg:py-8">

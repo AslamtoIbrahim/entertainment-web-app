@@ -12,7 +12,7 @@ function TvseriesLayout() {
   const tvseriesQuery = useTvSeriesQuery();
 
   const onSearchangeHandler = (search: string) => {
-    setSearch(search.trim());
+    setSearch(search);
   };
   
   return (
